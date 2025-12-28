@@ -1,9 +1,16 @@
 const express = require("express");
 const { chromium } = require("playwright");
+const cors = require("cors");
 const { calculateEstimate } = require("./calculateEstimate");
 
 const app = express();
 app.use(express.json({ limit: "1mb" }));
+
+app.use(cors({
+  origin: "*",         
+  methods: ["POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type"]
+}));
 
 function buildHtml(input, estimate) {
   const date = new Date().toLocaleDateString("ru-RU");
